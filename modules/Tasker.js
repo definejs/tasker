@@ -1,23 +1,19 @@
 const Emitter = require('@definejs/emitter');
-const $Object = require('@definejs/object');
-const IDMaker = require('@definejs/id-maker');
 
 const mapper = new Map();
 const sid$todos = {};
-
+let idCounter = 0;
 
 class Tasker {
     /**
     * 构造器。
     * @param {Array} [list] 任务列表。
     */
-    constructor(list, config) {
-        config = $Object.deepAssign({}, exports.defaults, config);
-
-        let maker = new IDMaker(config.idPrefix);
+    constructor(list) {
+        let id = `definejs-Tasker-${idCounter++}`;
 
         let meta = {
-            'id': maker.next(),
+            'id': id,
             'emitter': new Emitter(this),
             'list': list || [],
         };
@@ -184,5 +180,4 @@ Object.assign(Tasker, {
 });
 
 
-Tasker.defaults = require('./Tasker.defaults');
-module.exports = exports = Tasker;
+module.exports = Tasker;

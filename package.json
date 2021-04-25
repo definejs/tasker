@@ -1,6 +1,6 @@
 {
   "name": "@definejs/tasker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {},
@@ -13,8 +13,6 @@
     "url": "https://github.com/definejs/tasker.git"
   },
   "dependencies": {
-    "@definejs/emitter": "^1.0.0",
-    "@definejs/id-maker": "^1.0.1",
-    "@definejs/object": "^1.1.0"
+    "@definejs/emitter": "^1.0.0"
   }
 }

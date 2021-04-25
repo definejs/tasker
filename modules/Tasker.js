@@ -1,4 +1,6 @@
 const Emitter = require('@definejs/emitter');
+const $Object = require('@definejs/object');
+const IDMaker = require('@definejs/id-maker');
 
 const mapper = new Map();
 const sid$todos = {};
@@ -9,15 +11,28 @@ class Tasker {
     * 构造器。
     * @param {Array} [list] 任务列表。
     */
-    constructor(list) {
+    constructor(list, config) {
+        config = $Object.deepAssign({}, exports.defaults, config);
+
+        let maker = new IDMaker(config.idPrefix);
+
         let meta = {
+            'id': maker.next(),
             'emitter': new Emitter(this),
             'list': list || [],
         };
 
         mapper.set(this, meta);
+
+        Object.assign(this, {
+            'id': meta.id,
+        });
     }
 
+    // /**
+    // * 当前实例的 id。
+    // */
+    // id = ''
 
     /**
     * 并行处理。
@@ -168,4 +183,6 @@ Object.assign(Tasker, {
     }
 });
 
-module.exports = Tasker;
+
+Tasker.defaults = require('./Tasker.defaults');
+module.exports = exports = Tasker;
